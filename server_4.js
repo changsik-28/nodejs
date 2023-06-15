@@ -7,6 +7,10 @@ app.use(express.static('public'));
 app.use(express.bodyParser());
 // app.use(app.router);
 
+//ajax 요청시 다중서버 접속 지원
+var cors=require('cors')
+app.use(cors());
+
 // 라우트 처리
 app.all("/a",function(req,res){
     res.send("<h1>Page A.....</h1>");
@@ -105,7 +109,7 @@ app.put('/products/:id',function(req,res){
         error:'존재하지 않는 데이터 입니다. '
     })
 }
-})
+}) 
 
 //삭제하기
 app.del('/products/:id',function(req,res){
