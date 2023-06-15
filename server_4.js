@@ -92,6 +92,7 @@ app.put('/products/:id',function(req,res){
     var name=req.body.name;
     var price=req.body.price;
 
+    if(items[id]){
     items[id].name=name;
     items[id].price=price;
     
@@ -99,8 +100,31 @@ app.put('/products/:id',function(req,res){
         message:'데이터를 수정햇습니다.',
         data:items[id]
     })
-
+}else{
+    res.send({
+        error:'존재하지 않는 데이터 입니다. '
+    })
+}
 })
+
+//삭제하기
+app.del('/products/:id',function(req,res){
+    var id= Number(req.param('id'));
+    if(isNaN(id)){
+        res.send({error:'숫자를 입력하세용'})
+    }else if(items[id]){
+        items.splice(id,1);
+        res.send({
+            message:'데이터를 삭제했습니다.'
+        })
+    }else{
+        res.send({
+            error:'존재하지 않는 데이터 입니다. '
+        })
+    }
+})
+
+
 
 // 웹 서버를 실행합니다.
 http.createServer(app).listen(52275, function() {

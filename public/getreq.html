@@ -13,7 +13,7 @@
  <button id="delete">DELETE</button>
  <hr>
  <h1> input</h1>
- 순번 :<input type="number" id="num"> <br>
+ 순번 :<input type="text" id="num"> <br>
  이름 :<input id="name" name="name"> <br>
  가격 :<input id="price" name="price">
  <h1> output</h1>
@@ -63,6 +63,19 @@
      $('#output').val(data);
     },
     error: function(){ }
+    })
+  })
+
+  //삭제하기
+  $('#delete').click(function(){
+    var id=$('#num').val();
+    $.ajax({
+        url:'/products/'+id,
+        type:'delete',
+        dataType:'text',
+        success:function(data){
+            $('#output').val(data)
+        }
     })
   })
 
