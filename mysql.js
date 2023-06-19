@@ -107,7 +107,11 @@ app.all('/parameter',function(req,res){
     var data={name,modelnumber,series};
     var sql='insert into products (name,modelnumber,series)values(?,?,?)';
     client.query(sql,[name,modelnumber,series],function(err,result){
-        res.send(data);
+        if(result){
+            res.send(data);
+        }else{
+            res.send(err);
+        }
     });
 });
 
